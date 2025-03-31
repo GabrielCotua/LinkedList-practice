@@ -7,27 +7,20 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
-
-void insert_end(Node** root, int value);
-void deallocate(Node** root);
+// Node** means that it is the address of the pointer aka, the pointer of the pointer
+void insert_end(Node** root, int value); // Function to insert a new node at the end of the list 
+void deallocate(Node** root); // Wll be done
 
 int main(void){
-    Node* root = NULL;
-    /** 
-    Node* root = malloc(sizeof(Node));
-    if (root == NULL) {
-        printf("Memory allocation failed\n");
-        exit(2);
-    }
-    root->x = 15;
-    root->next = NULL;
-    */
+    Node* root = NULL; // initialize the root pointer of the linked list
+    // it is NULL becuase will indicate that is the last one to iterate trough 
 
-    insert_end(&root,20);
-    insert_end(&root,200);
+    insert_end(&root,20); // insert 20 at the end of the list
+    insert_end(&root,200); // insert 200 at the end of the list
 
-    for (Node* curr = root; curr != NULL; curr = curr->next) {
-        printf("%d\n", curr->x);
+    for (Node* curr = root; curr != NULL; curr = curr->next) { // we are iterating through the list, interesting that instead of int i, we have to change the
+                                                               // adress of curr to the next one {curr = curr->next}
+        printf("%d\n", curr->x); // print the value of the current node
     }
 
 
@@ -35,7 +28,7 @@ int main(void){
 }
 
 void insert_end(Node** root, int value) {
-    Node* new_node = malloc(sizeof(Node));
+    Node* new_node = malloc(sizeof(Node)); //dinamically allocate memory for a new node
     if (new_node == NULL) {
         printf("Memory allocation failed\n");
         exit(1);
@@ -53,6 +46,7 @@ void insert_end(Node** root, int value) {
         curr = curr->next;
     }
     curr->next = new_node;
+    free(new_node); // free the memory allocated for the new node
 }
 
 void deallocate(Node** root) {
